@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        animals: ''
+    };
+  }
+
+  componentDidMount() {
+      axios.get('https://api.petfinder.com/v2/animals', {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_PETFINDER_TOKEN}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        console.log("animals = " + res.data.animals);
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
+  render() {
+    return (
+        <div></div>
+    );
+  }
 }
 
 export default App;
