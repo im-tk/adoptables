@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { Component } from 'react';
+import getPetFinderToken from './util/getPetFinderToken';
 
 class App extends Component {
   constructor(props) {
@@ -10,18 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-      axios.get('https://api.petfinder.com/v2/animals', {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_PETFINDER_TOKEN}`
-        }
-      })
-      .then((res) => {
-        console.log(res.data);
-        console.log("animals = " + res.data.animals);
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    getPetFinderToken();
   }
 
   render() {
